@@ -113,6 +113,7 @@ body {
 .publication-img {
   width: 100%;
   border-radius: 5px;
+  text-align: center;
 }
 
 .publication-video-small {

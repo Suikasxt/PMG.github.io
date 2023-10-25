@@ -21,6 +21,15 @@
 
     gtag('config', 'G-PYVRSFMDRL');
   </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -32,7 +41,7 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+  <!--<link rel="icon" href="./static/images/favicon.svg">-->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -55,7 +64,7 @@
                 <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
-                      <i class="fab fa-youtube"></i>
+                    <i class="far fa-images"></i>
                   </span>
                   <span>Demo</span>
                 </a>
@@ -179,12 +188,84 @@
           We leverage the reasoning abilities of a large language model to extract user preferences from historical behaviors (including clicks in recommender systems and conversations with a virtual assistant).
           The user behaviors are used to produce preference conditions, including explicit keywords in natural language (named preference keywords) by a frozen LLM and implicit embeddings (named soft preference embeddings) by a tunable bias correction LLM.
           Additionally, we also convert the target item into explicit keywords (named target item keywords) to serve as the target item conditions.
-          Ultimately, the generator, which could be a diffusion model or multimodal LLM, produces the responses by incorporating and weighting personalized and target item conditions after the text encoder of the generator.
+          Ultimately, the generator, which could be a diffusion model or multimodal LLM, produces the responses by incorporating and weighting preference and target item conditions after the text encoder of the generator.
         </p>
     </div>
   </div>
 </section>
 
+<section class="section">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <h2 class="title is-3">Balancing the weights of preference and target item conditions</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <!-- Cross domain. -->
+      <div class="column">
+        <div class="content">
+
+          <p>
+            The generation inference process incorporates both preference and target item conditions.
+            Simply combining these conditions can result in favoritism towards one and overshadowing the other.
+            So we generate with multiple sets of condition weights and select the best one. <br>
+          </p>
+            <div class="publication-img">
+              <img id="style_transfer" src="./static/images/weight.png"/>
+            </div>
+          <p>
+            Generated poster of movie <i>Titanic</i> with different sets of condition weights.
+            $w_p$ is the weight of preference conditions, which prefer disaster movie.
+            $w_t$ is the weight of target item conditions, which consider it as a romantic movie.
+            When $w_p:w_t = 1:3$ it achieves the best performance and the generated poster is a appropriate combination of romance and disaster.
+          </p>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="container is-max-desktop">
+
+      <div class="section-title">
+        <h2 class="title is-3">Case study of soft preference embeddings</h2>
+      </div>
+
+    <div class="columns is-centered">
+
+      <!-- Cross domain. -->
+      <div class="column">
+        <div class="content">
+
+          <p>
+            Merely representing user preferences as natural language, specifically keywords, may not be accurate because they have limited expressive ability whereas user preferences are abstract.
+            To address this challenge, we propose to let the LLM output a combination of explicit keywords and implicit embeddings to represent user preferences.
+            Then the combination of keywords and embeddings are used as prompts to condition the generator.<br>
+          </p>
+            <div class="publication-img">
+              <img id="style_transfer" src="./static/images/soft_embedding.png"/>
+            </div>
+          <p>
+            This figure shows how soft preference embeddings correct the language bias.
+            With keywords ``shoes'' and ``cartoon'', the generation without these embeddings may produce a cartoon-style drawing of shoes.
+            The generation with them consistently generates realistic shoes adorned with cartoon patterns.
+          </p>
+        </div>
+      </div>
+      <!--/ Cross domain. -->
+
+      <!-- New domain editing. -->
+    </div>
+    <!--/ New domain editing. -->
+  </div>
+</section>
 
 <footer class="footer">
   <div class="container">

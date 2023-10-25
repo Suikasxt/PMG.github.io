@@ -1732,7 +1732,7 @@ var Pagination = function () {
 				e.preventDefault();
 			}
 
-			this.slider.state.next = e.currentTarget.dataset.index;
+			this.slider.state.next = parseInt(e.currentTarget.dataset.index);
 			this.slider.show();
 		}
 	}, {
@@ -2331,12 +2331,12 @@ var defaultOptions = {
     slidesToScroll: 1
   }, {
     changePoint: 640,
-    slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToShow: 2,
+    slidesToScroll: 2
   }, {
     changePoint: 768,
-    slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToShow: 3,
+    slidesToScroll: 3
   }],
 
   onReady: null,
