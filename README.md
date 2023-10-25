@@ -1,6 +1,6 @@
 # Personalized Multimodal Response Generation with Large Language Models
 
-This is the repository that contains source code for the [PMG website](https://PMG.github.io).
+This is the repository that contains source code for the [PMG website](https://suikasxt.github.io).
 
 
 # Website License
